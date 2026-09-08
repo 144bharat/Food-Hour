@@ -12,7 +12,7 @@ const useRestaurantMenu = (id) => {
     async function fetchRestroInfo(){
         const data = await fetch(RESMENU_URL+id);
         const json = await data.json();
-        console.log("Custom Hook Menu data: ", json);
+        // console.log("Custom Hook Menu data: ", json);
         setRestaurantInfo(json);
     }
 

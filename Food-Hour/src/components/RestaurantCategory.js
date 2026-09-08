@@ -1,10 +1,17 @@
 import { ChevronsDown, ChevronsUp } from 'lucide-react';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addItem } from '../utils/slices/cartSlice';
 
 const RestaurantCategory = (props) => {
   //console.log("props: ", props);
   const { categoryData } = props;
   const [currIndex, setCurrIndex] = useState(null);
+
+  const dispatch = useDispatch();
+  const handleAddItemToCart = (cartItem) => {
+    dispatch(addItem(cartItem));
+  }
 
   return (
     <div>
@@ -13,9 +20,9 @@ const RestaurantCategory = (props) => {
           //THIS CONDITION IS ADDED TO REMOVE ACCORDIAN ITEM WHOSE DO NOT HAVE ANY ITEMCARDS
           cat.card?.card?.itemCards.length && (
             <div className="accordian bg-blue-100 rounded-lg p-2" key={index}>
-              <div className="accordian-title bg-white my-2 py-2 rounded-lg">
+              <div className="accordian-title bg-white my-2 py-2 rounded-lg cursor-pointer" onClick={()=>{(currIndex == index)?setCurrIndex(null):setCurrIndex(index)}}>
                 {cat.card?.card?.title} ({cat.card?.card?.itemCards.length})
-                <button className="float-right" onClick={()=>{(currIndex == index)?setCurrIndex(null):setCurrIndex(index)}}>
+                <button className="float-right">
                   {(currIndex == index)?<ChevronsUp className="text-olive-600" />:<ChevronsDown className="text-olive-600" />}
                 </button>
               </div>
@@ -50,7 +57,9 @@ const RestaurantCategory = (props) => {
                         </span>
                       </p>
 
-                      <button className="md:float-right md:w-[40%] w-full bg-amber-400 text-white py-2 m-1 cursor-pointer hover:bg-lime-400 rounded-lg">
+                      <button className="md:float-right md:w-[40%] w-full bg-amber-400 text-white py-2 m-1 cursor-pointer hover:bg-lime-400 rounded-lg"
+                      onClick={() => handleAddItemToCart(itemcard)}
+                      >
                         Add Cart
                       </button>
                     </div>

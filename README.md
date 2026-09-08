@@ -16,4 +16,4 @@ This repository contains my practice code, notes, and exercises while learning R
 To document my journey of learning React and building hands‑on projects for better understanding.
 
 ## 🍳 Current Focus
-I am now beginning the development of the **Mom’s Kitchen Food App** — a React‑based UI project designed to apply concepts from the course in a real‑world scenario. This project will emphasize clean design, responsive layouts, and professional coding practices.
+I am now beginning the development of the **Food-Hour App** — a React‑based UI project designed to apply concepts from the course in a real‑world scenario. This project will emphasize clean design, responsive layouts, and professional coding practices.

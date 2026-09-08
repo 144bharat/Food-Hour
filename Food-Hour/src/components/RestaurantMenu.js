@@ -50,7 +50,7 @@ const RestaurantMenu = () => {
 
   const cards =
     restaurantInfo?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
-  console.log('CARDS: ' + JSON.stringify(cards));
+  // console.log('CARDS: ' + JSON.stringify(cards));
   return (
     <div className="menu p-5 w-[60%] mx-auto">
       <div className="card flex md:flex-row flex-col-reverse gap-5 border shadow-lg rounded-2xl p-2">

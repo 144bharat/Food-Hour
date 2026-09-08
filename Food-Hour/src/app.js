@@ -18,6 +18,11 @@ import { createBrowserRouter, Outlet, RouterProvider } from "react-router";
 import UserContext from "/src/utils/UserContext.js";
 import { useContext } from "react";
 
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore";
+import Cart from "./components/Cart";
+
+
 const Grocery = lazy(()=> import("./components/Grocery"));
 const About = lazy(()=> import("./components/About"));
 
@@ -43,13 +48,13 @@ const AppLayout = () => {
         },[]
     );
     return (
-        <div>
+        <Provider store={appStore}>
             <UserContext.Provider value={{loggedInUserName: logInUserName}}>
             <Header/>
             <main><Outlet/></main>
             <Footer/>
             </UserContext.Provider>
-        </div>
+        </Provider>
     )
 }
 
@@ -77,6 +82,10 @@ const appRouter = createBrowserRouter([
             {
                 path:'/grocery',
                 element:<Suspense fallback={<h1>I will be displayed unless the component loads.....</h1>}><Grocery/></Suspense>
+            },
+            {
+                path:'/cart',
+                element:<Cart />
             }
         ],
         errorElement:<Error/>

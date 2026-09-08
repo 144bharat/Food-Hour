@@ -102,19 +102,19 @@ const Body = () => {
               setRestroFilteredList(searchedRestroList);
             }}
           >
-            <Search className="p-2 w-12 h-8 mx-auto hover:scale-150 transition-transform" />
+            <Search className="p-2 size-8 mx-auto hover:scale-110 transition-transform" />
           </button>
         </div>
 
-        <div className='flex gap-2 bg-olive-950 text-white shadow-lg rounded-md items-center flex-nowrap cursor-pointer'>
+        <div className='flex gap-2 bg-olive-950 text-white shadow-lg rounded-md items-center flex-nowrap cursor-pointer p-2 group'>
             <button
               type="button"
-              className="topratedfilterbtn p-1"
+              className="topratedfilterbtn"
               onClick={filter4StarAboveRestros}
             >
               Top Rated Restraurants
             </button>
-            <Filter className="w-8 hover:scale-110" />
+            <Filter className="w-5  group-hover:animate-pulse" />
         </div>
         
 
