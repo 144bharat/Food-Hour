@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import ShimmerCards from './ShimmerCards';
 import { Link } from 'react-router';
 import useOnlineStatus from '../utils/useOnlineStatus';
+import { RESLIST_URL } from "../utils/constants";
 
 const Body = () => {
   let [restroList, setRestroList] = useState([]); //resDataList.data.data.cards[1].card.card.gridElements.infoWithStyle.restaurants
@@ -24,9 +25,8 @@ const Body = () => {
   let checkOnlineStatus = useOnlineStatus();
 
   let fetchRestroData = async () => {
-    let dataStream = await fetch(
-      'https://namastedev.com/api/v1/listRestaurants'
-    );
+    let dataStream = await fetch(RESLIST_URL);
+
     let restroListDataFromApi = await dataStream.json();
     //ADDED Promoted Key and boolean value in API Response BELOW:
     let listData =

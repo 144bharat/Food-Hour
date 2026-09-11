@@ -51,7 +51,7 @@ const AppLayout = () => {
         <Provider store={appStore}>
             <UserContext.Provider value={{loggedInUserName: logInUserName}}>
             <Header/>
-            <main><Outlet/></main>
+            <main className="min-h-screen"><Outlet/></main>
             <Footer/>
             </UserContext.Provider>
         </Provider>

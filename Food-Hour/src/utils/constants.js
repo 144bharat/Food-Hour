@@ -5,3 +5,5 @@ export const RestroCardLogo = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAA
 export const RESMENU_URL = "https://namastedev.com/api/v1/listRestaurantMenu/"
 
 export const GITPROFILE_URL = "https://api.github.com/users/144bharat"
+
+export const RESLIST_URL = "https://namastedev.com/api/v1/listRestaurants"
