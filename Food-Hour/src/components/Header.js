@@ -1,11 +1,13 @@
 import { ShoppingCart } from 'lucide-react';
-import { LOGO_URL } from '../utils/constants';
+// import { LOGO_URL } from '../utils/constants';
 import { Link } from 'react-router';
 import useOnlineStatus from '../utils/useOnlineStatus';
 import UserContext from '../utils/UserContext';
 import { useContext, useState } from 'react';
 
 import { useSelector } from 'react-redux';
+
+import Food_Logo from "../images/Food_Logo.png"; 
 
 const Header = () => {
 
@@ -21,7 +23,7 @@ const Header = () => {
   return (
     <div className="header not-dark:bg-orange-200 bg-olive-950 flex justify-between items-center px-5 shadow-lg not-dark:text-olive-950 text-white font-semibold">
       <div className="logoContainer">
-        <img className="logo w-20 rounded-full" src={LOGO_URL} />
+        <img className="logo w-20 rounded-full" src={Food_Logo} />
       </div>
       <ul className="navItems flex">
         <li className="px-5 hover:not-dark:text-white hover:underline decoration-dashed">
