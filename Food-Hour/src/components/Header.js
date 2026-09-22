@@ -7,14 +7,12 @@ import { useContext, useState } from 'react';
 
 import { useSelector } from 'react-redux';
 
-import Food_Logo from "../images/Food_Logo.png"; 
+import { LOGO_URL } from "../utils/constants";
 
 const Header = () => {
 
   const [logInBtnLabel, setLogInBtnLabel] = useState("log-in");
-
   const onlineStatus = useOnlineStatus();
-
   const {loggedInUserName} = useContext(UserContext);
   
   //WITH THE HELP OF useSelector WE SUBSCRIBED TO THE REDUX STORE.
@@ -23,7 +21,7 @@ const Header = () => {
   return (
     <div className="header not-dark:bg-orange-200 bg-olive-950 flex justify-between items-center px-5 shadow-lg not-dark:text-olive-950 text-white font-semibold">
       <div className="logoContainer">
-        <img className="logo w-20 rounded-full" src={Food_Logo} />
+        <img className="logo w-20 rounded-full" src={LOGO_URL} alt="Food Hour Logo" />
       </div>
       <ul className="navItems flex">
         <li className="px-5 hover:not-dark:text-white hover:underline decoration-dashed">
@@ -44,11 +42,21 @@ const Header = () => {
       </ul>
       <div className="userProfile flex gap-1 items-center">
         {/* will use this if user logged in: <UserRoundPen/> */}
-        <button className={`text-white rounded-lg p-2 cursor-pointer ${logInBtnLabel === "log-in"?"bg-red-500":"bg-green-500"}`} onClick={()=>{setLogInBtnLabel(logInBtnLabel === "log-in"?"log-out":"log-in")}}>
-            {logInBtnLabel}
-        </button>
-        <p>{loggedInUserName}</p>
-        {onlineStatus ? `🟢` : `🔴`}
+
+        <p className="flex items-center gap-2">
+          <span>{loggedInUserName}</span>
+
+          <span
+            className={`size-2 rounded-full ${
+              onlineStatus ? "bg-green-500" : "bg-red-500"
+            }`}
+          />
+        </p>
+
+      <button className={`text-white rounded-lg p-2 cursor-pointer ${logInBtnLabel === "log-in"?"bg-red-500":"bg-green-500"}`} onClick={()=>{setLogInBtnLabel(logInBtnLabel === "log-in"?"log-out":"log-in")}}>
+          {logInBtnLabel}
+      </button>
+
       </div>
     </div>
   );

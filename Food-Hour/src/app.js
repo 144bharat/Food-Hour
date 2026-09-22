@@ -1,6 +1,5 @@
-import React, {lazy, Suspense, useEffect, useState} from "react";
+import {lazy, Suspense, useEffect, useState} from "react";
 import ReactDOM from "react-dom/client";
-import { UserRoundPen , Search, SquareDot, SquareMinus } from "lucide-react";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -11,7 +10,7 @@ import Error from "./components/Error";
 
 //createBrowserRouter ==> Configuration to create routes
 //RouterProvider ==> Component provided by react-router to provide defined routes throughout the application.
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router";
+import { createBrowserRouter, Outlet, RouterProvider, useLocation } from "react-router";
 //INSTEAD OF IMPORTING DIRECTLY NOW WE WILL LOAD IT DYNAMICALLY ON DEMAND: import Grocery from "./components/Grocery";
 //import About from "./components/About";
 
@@ -22,6 +21,11 @@ import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
 import Cart from "./components/Cart";
 
+import { AnimatePresence } from "framer-motion";
+import Loading from "./components/Loading";
+import { hideLoading } from "./utils/slices/appSlice";
+import { useDispatch, useSelector } from "react-redux";
+
 
 const Grocery = lazy(()=> import("./components/Grocery"));
 const About = lazy(()=> import("./components/About"));
@@ -30,38 +34,58 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 
 const AppLayout = () => {
+  const showLoading = useSelector((store) => store.app.showLoading);
+  const dispatch = useDispatch();
 
+    //const location = useLocation();
+    //const [showLoading, setShowLoading] = useState(location.pathname === "/");
+    
     //We got the default value of our user context.
     const {loggedInUserName} = useContext(UserContext);
 
     const [logInUserName, setLogInUserName] = useState(loggedInUserName);
 
-    useEffect(
-        ()=>{
-            setTimeout(()=>{
-                // Suppose we made an api call to authenticate our user and we got succeed with response of loggedInUserName.
-                const data = {
-                    userName: "bharat gautam"
-                }
-                setLogInUserName(data.userName);
-            },1000)
-        },[]
-    );
+    // useEffect(
+    //     ()=>{
+    //         setTimeout(()=>{
+    //             // Suppose we made an api call to authenticate our user and we got succeed with response of loggedInUserName.
+    //             const data = {
+    //                 userName: "bharat gautam"
+    //             }
+    //             setLogInUserName(data.userName);
+    //         },1000)
+    //     },[]
+    // );
+
+
     return (
-        <Provider store={appStore}>
-            <UserContext.Provider value={{loggedInUserName: logInUserName}}>
-            <Header/>
-            <main className="min-h-screen"><Outlet/></main>
-            <Footer/>
-            </UserContext.Provider>
-        </Provider>
+         <>
+        <AnimatePresence>
+            {showLoading && (
+            <Loading onComplete={() => dispatch(hideLoading())} />
+            )}
+        </AnimatePresence>
+
+        {!showLoading && (
+            <>
+            {/* <Provider store={appStore}> */}
+                <UserContext.Provider value={{loggedInUserName: logInUserName}}>
+                <Header/>
+                <main className="min-h-screen"><Outlet/></main>
+                <Footer/>
+                </UserContext.Provider>
+            {/* </Provider> */}
+            </>
+        )}
+        </>
+        
     )
 }
 
 const appRouter = createBrowserRouter([
     {
         path:'/',
-        element:<AppLayout/>,
+        element:<Provider store={appStore}><AppLayout/></Provider>,
         children:[
             {
                 path:'/',
