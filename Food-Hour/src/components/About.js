@@ -80,6 +80,7 @@
 import React from "react";
 import { GITPROFILE_URL } from "../utils/constants";
 import { Code, Database, ChefHat } from "lucide-react";
+import { GITPROFILEDATA } from "../utils/mockData";
 
 class About extends React.Component {
   constructor(props) {
@@ -90,9 +91,15 @@ class About extends React.Component {
   }
 
   async componentDidMount() {
+    if(process.env.NODE_ENV === "development"){
     const data = await fetch(GITPROFILE_URL);
     const json = await data.json();
+    // console.log("GITPROFILE DATA: ", json);
     this.setState({ gitProfileInfo: json });
+    }else{
+      const data = GITPROFILEDATA;
+      this.setState({ gitProfileInfo: data });
+    }
   }
 
   render() {

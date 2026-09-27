@@ -6,6 +6,7 @@ import ShimmerCards from './ShimmerCards';
 import { Link } from 'react-router';
 import useOnlineStatus from '../utils/useOnlineStatus';
 import { RESLIST_URL } from "../utils/constants";
+import { RESLISTDATA } from "../utils/mockData";
 
 const Body = () => {
   let [restroList, setRestroList] = useState([]); //resDataList.data.data.cards[1].card.card.gridElements.infoWithStyle.restaurants
@@ -25,9 +26,16 @@ const Body = () => {
   let checkOnlineStatus = useOnlineStatus();
 
   let fetchRestroData = async () => {
-    let dataStream = await fetch(RESLIST_URL);
+    let restroListDataFromApi;
 
-    let restroListDataFromApi = await dataStream.json();
+    if(process.env.NODE_ENV === "development"){
+      let dataStream = await fetch(RESLIST_URL);
+      restroListDataFromApi = await dataStream.json();
+    }else{
+      restroListDataFromApi = RESLISTDATA;
+    }
+
+    // console.log("RESLIST DATA: ", restroListDataFromApi);
     //ADDED Promoted Key and boolean value in API Response BELOW:
     let listData =
       restroListDataFromApi?.data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants.map(
